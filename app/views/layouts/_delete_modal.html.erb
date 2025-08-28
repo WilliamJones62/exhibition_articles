@@ -1,0 +1,40 @@
+</div><!-- delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-light">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+        <% if controller_name == 'articles' %> 
+          Delete Article 
+        <% elsif controller_name == 'exhibitions' %>
+          Delete Exhibition
+        <% else %>
+          Delete Publication
+        <% end %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <% if controller_name == 'articles' %> 
+      <p>Are you sure you want to cancel this article?</p>
+      <% elsif controller_name == 'exhibitions' %>
+      <p>Are you sure you want to cancel this exhibition?</p>
+      <p>All articles for this exhibition will also be deleted!</p>
+      <% else %>
+      <p>Are you sure you want to delete this publication?</p>
+      <p>All articles for this publication will also be deleted!</p>
+      <% end %>
+      </div>
+      <div class="modal-footer">
+        <% if controller_name == 'articles' %> 
+        <%= button_to 'Yes', @article, class: "btn btn-danger", method: :delete %>
+        <% elsif controller_name == 'exhibitions' %>
+        <%= button_to 'Yes', @exhibition, class: "btn btn-danger", method: :delete %>
+        <% else %>
+        <%= button_to 'Yes', @publication, class: "btn btn-danger", method: :delete %>
+        <% end %>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="No">No</button>
+      </div>
+    </div>
+  </div>
+</div>

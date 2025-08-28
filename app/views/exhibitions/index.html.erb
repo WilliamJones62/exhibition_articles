@@ -1,0 +1,18 @@
+<h1>Exhibitions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exhibitions.each do |exhibition| %>
+      <tr>
+        <td><%= exhibition.name %></td>
+        <td><%= link_to "EDIT", edit_exhibition_path(exhibition), class: "btn btn_primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

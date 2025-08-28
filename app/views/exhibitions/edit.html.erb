@@ -1,0 +1,17 @@
+<h1>Editing exhibition</h1>
+
+<%= render "form", exhibition: @exhibition %>
+
+<br>
+
+<div>
+  <%= link_to "Back to article", new_article_path %>
+</div>
+<div class="col-sm-6">
+<% if current_user.admin %>
+<h4>Delete Exhibition</h4>
+<a href="#" class="btn btn-danger d-bloc" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+</div>
+<% end %>
+
+<%= render 'layouts/delete_modal' %>
