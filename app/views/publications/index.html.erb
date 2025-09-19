@@ -11,7 +11,9 @@
     <% @publications.each do |publication| %>
       <tr>
         <td><%= publication.name %></td>
-        <td><%= link_to "EDIT", edit_publication_path(publication), class: "btn btn_primary" %></td>
+        <% if current_user %>
+        <td><%= link_to "EDIT", edit_publication_path(publication), class: "btn btn-primary" %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

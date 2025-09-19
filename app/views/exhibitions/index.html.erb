@@ -11,8 +11,10 @@
     <% @exhibitions.each do |exhibition| %>
       <tr>
         <td><%= exhibition.name %></td>
-        <td><%= link_to "EDIT", edit_exhibition_path(exhibition), class: "btn btn_primary" %></td>
-      </tr>
-    <% end %>
+        <% if current_user %>
+        <td><%= link_to "EDIT", edit_exhibition_path(exhibition), class: "btn btn-primary" %></td>
+        <% end %>
+        </tr>
+      <% end %>
   </tbody>
 </table>

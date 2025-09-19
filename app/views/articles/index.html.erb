@@ -17,9 +17,11 @@
         <td><%= article.exhibition.name %></td>
         <td><%= article.publication.name %></td>
         <td><%= article.title %></td>
-        <td><%= link_to "EDIT", edit_article_path(article), class: "btn btn_primary" %></td>
-      </tr>
+        <% if current_user %>
+        <td><%= link_to "EDIT", edit_article_path(article), class: "btn btn-primary" %></td>
+        <% end %>
     <% end %>
   </tbody>
+</table>
 
-<%= link_to "New article", new_article_path %>
+<%= link_to "New article", new_article_path, class: "btn btn-secondary" %>
