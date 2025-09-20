@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'reports/barchart'
+      get 'reports/piechart'
+      get 'reports/linegraph'
+    end
+  end
   get 'home/main'
   devise_for :users
   resources :articles

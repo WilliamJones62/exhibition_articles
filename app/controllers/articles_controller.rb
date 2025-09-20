@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.all
+    @articles = Article.order(:title)
   end
 
   # GET /articles/new

@@ -6,7 +6,8 @@ class ExhibitionsController < ApplicationController
   before_action :set_lists, only: %i[edit]
 
   def index
-    @exhibitions = Exhibition.all
+    # @exhibitions = Exhibition.all
+    @exhibitions = Exhibition.order(:name)
   end
 
   def edit

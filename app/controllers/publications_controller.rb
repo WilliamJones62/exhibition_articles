@@ -4,7 +4,7 @@
 class PublicationsController < ApplicationController
   before_action :set_publication, only: %i[edit update destroy]
   def index
-    @publications = Publication.all
+    @publications = Publication.order(:name)
   end
 
   def edit
