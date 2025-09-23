@@ -1,2 +1,48 @@
-<h1>Home#main</h1>
-<p>Find me in app/views/home/main.html.erb</p>
+<canvas id="barChart" style="width:100%;max-width:700px"></canvas>
+<label for="year">Year (between 1792 and 1903):</label>
+<%= select_tag(:year, options_for_select(@years)) %>
+<script>
+    var year = document.getElementById('year');
+    year.addEventListener('change', (event) => {
+        const selectedOptionValue = event.target.value;
+        var apiAddress = `/api/v1/reports/barchart.json?year=${selectedOptionValue}`                
+        const req = new XMLHttpRequest();
+        req.addEventListener("load", () => {
+            if (req.status === 200) {
+                var repos = JSON.parse(req.responseText);
+                const barChartCanvas = document.getElementById('barChart');
+        
+                var xValues = repos.xvalues;
+                var yValues = repos.yvalues;
+                var barColors = ["red", "green","blue","orange","brown"];
+            
+                const barChart = new Chart(barChartCanvas, {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: (context) => {
+                                const index = context.dataIndex;
+                                return barColors[index % barColors.length];
+                            },
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: {display: false},
+                        title: {
+                            display: true,
+                            text: `Exhibition Favorability ${selectedOptionValue}`
+                        }
+                    }
+                });
+            } else {
+                console.error("Request failed with status:", req.status);
+            }
+        });
+        req.open('GET', apiAddress);
+        req.send();
+    
+    });
+
+</script>
