@@ -16,14 +16,12 @@
     <%= form.select :exhibition_id, options_for_select(@exhibitions.map{ |e| [e.name + ' ' + e.year.to_s, e.id]}, @current_exhibition) %>
   </div>
   
-  <div>
-    <p>If the exhibition you need does not appear in the list please add it here</p>
-    <div>
+  <p>If the exhibition you need does not appear in the list please add it here</p>
+  <div class="d-flex justify-content-end">
       <%= form.label :exhibition_name, style: "display: block" %>
       &nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :exhibition_name %>
-      <%= form.label :exhibition_year, style: "display: block" %>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :exhibition_year, style: "display: block" %>
       &nbsp;&nbsp;&nbsp;&nbsp;<%= form.select :exhibition_year, options_for_select(@years), prompt: "Select the exhibition year" %>
-    </div>
   </div>
 
   <div>
@@ -31,13 +29,13 @@
     <%= form.select :publication_id, options_for_select(@publications.map{ |p| [p.name, p.id]}, @current_publication) %>
   </div>
 
-  <div>
-    <p>If the publication you need does not appear in the list please add it here</p>
+  <p>If the publication you need does not appear in the list please add it here</p>
+  <div class="d-flex justify-content-end">
     <%= form.label :publication_name, style: "display: block" %>
     &nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :publication_name %>
-    <%= form.label :publication_type, style: "display: block" %>
+    &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :publication_type, style: "display: block" %>
     &nbsp;&nbsp;&nbsp;&nbsp;<%= form.select :publication_type, options_for_select(@publication_types), prompt: "Select the publication type" %>
-    </div>
+  </div>
   <br>
   <div>
     <%= form.label :title, style: "display: block" %>
