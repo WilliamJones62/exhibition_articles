@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   get 'home/main'
   devise_for :users
+  get 'articles/download'
   resources :articles
   resources :publications, only: [:index, :edit, :destroy]
   resources :exhibitions, only: [:index, :edit, :destroy]

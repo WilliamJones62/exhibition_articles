@@ -66,6 +66,11 @@ class ArticlesController < ApplicationController
     redirect_to articles_url, notice: 'Article was successfully destroyed.'
   end
 
+  def download
+    @articles = Article.all
+    send_data @articles.to_csv, filename: "articles-#{Date.today}.csv"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

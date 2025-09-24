@@ -1,15 +1,22 @@
+<%= link_to "Download CSV", articles_download_path(format: :csv), class: "btn btn-primary" %>
 <canvas id="barChart" style="width:100%;max-width:700px"></canvas>
-<label for="year">Year (between 1792 and 1903):</label>
-<%= select_tag(:year, options_for_select(@years)) %>
+<label for="baryear">Year (between 1792 and 1903):</label>
+<%= select_tag(:baryear, options_for_select(@years)) %>
+<canvas id="pieChart" style="width:100%;max-width:700px"></canvas>
+<label for="pieyear">Year (between 1792 and 1903):</label>
+<%= select_tag(:pieyear, options_for_select(@years)) %>
+<canvas id="lineGraph" style="width:100%;max-width:700px"></canvas>
+<label for="lineExh">Exhibition:</label>
+<%= select_tag(:lineexh, options_for_select(@exhibitions), multiple: true) %>
 <script>
-    var year = document.getElementById('year');
-    year.addEventListener('change', (event) => {
+    var baryear = document.getElementById('baryear');
+    baryear.addEventListener('change', (event) => {
         const selectedOptionValue = event.target.value;
-        var apiAddress = `/api/v1/reports/barchart.json?year=${selectedOptionValue}`                
-        const req = new XMLHttpRequest();
-        req.addEventListener("load", () => {
-            if (req.status === 200) {
-                var repos = JSON.parse(req.responseText);
+        var barAddress = `/api/v1/reports/barchart.json?year=${selectedOptionValue}`                
+        const barReq = new XMLHttpRequest();
+        barReq.addEventListener("load", () => {
+            if (barReq.status === 200) {
+                var repos = JSON.parse(barReq.responseText);
                 const barChartCanvas = document.getElementById('barChart');
         
                 var xValues = repos.xvalues;
@@ -37,12 +44,106 @@
                     }
                 });
             } else {
-                console.error("Request failed with status:", req.status);
+                console.error("Request failed with status:", barReq.status);
             }
         });
-        req.open('GET', apiAddress);
-        req.send();
+        barReq.open('GET', barAddress);
+        barReq.send();
     
     });
 
+    var pieyear = document.getElementById('pieyear');
+    pieyear.addEventListener('change', (event) => {
+        const selectedOptionValue = event.target.value;
+        var pieAddress = `/api/v1/reports/piechart.json?year=${selectedOptionValue}`                
+        const pieReq = new XMLHttpRequest();
+        pieReq.addEventListener("load", () => {
+            if (pieReq.status === 200) {
+                var repos = JSON.parse(pieReq.responseText);
+                const pieChartCanvas = document.getElementById('pieChart');
+        
+                var xValues = repos.xvalues;
+                var yValues = repos.yvalues;
+                var pieColors = ["red", "green","blue","orange","brown"];
+            
+                const pieChart = new Chart(pieChartCanvas, {
+                    type: "pie",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: (context) => {
+                                const index = context.dataIndex;
+                                return pieColors[index % pieColors.length];
+                            },
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: {display: false},
+                        title: {
+                            display: true,
+                            text: `Articles Count ${selectedOptionValue}`
+                        }
+                    }
+                });
+            } else {
+                console.error("Request failed with status:", pieReq.status);
+            }
+        });
+        pieReq.open('GET', pieAddress);
+        pieReq.send();
+    
+    });
+
+    var lineexh = document.getElementById('lineexh');
+    lineexh.addEventListener('change', (event) => {
+        const selectedOptions = event.target.selectedOptions; 
+        const selectedValues = Array.from(selectedOptions).map(option => option.value);
+        const jsonString = selectedValues.toString();
+        var lineAddress = `/api/v1/reports/linegraph.json?exhibitions=${jsonString}`                
+        const lineReq = new XMLHttpRequest();
+        lineReq.addEventListener("load", () => {
+            if (lineReq.status === 200) {
+                var repos = JSON.parse(lineReq.responseText);
+                const lineGraphCanvas = document.getElementById('lineGraph');
+        
+                var xValues = repos.xvalues;
+                var yValues = repos.yvalues;
+            
+                const lineChart = new Chart(lineGraphCanvas, {
+                    type: "line",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            data: yValues,
+                            borderColor: "red"
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom'
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Articles Count',
+                                font: { 
+                                    size: 18,
+                                    weight: 'bold'                            },
+                                color: 'blue'
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error("Request failed with status:", lineReq.status);
+            }
+        });
+        lineReq.open('GET', lineAddress);
+        lineReq.send();
+    
+    });
 </script>

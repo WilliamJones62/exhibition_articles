@@ -8,6 +8,9 @@
         <li class="nav-item">
         <%= link_to 'Home', home_main_path, class: "nav-link" %>
         </li>
+        <li class="nav-item">
+        <%= link_to 'Buy Me A Coffee', "https://www.buymeacoffee.com/yourusername", class: "nav-link", target: "_blank"  %>
+        </li>
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to 'My Profile', edit_user_registration_path, class: "nav-link" %>

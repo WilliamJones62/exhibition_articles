@@ -6,10 +6,15 @@ class HomeController < ApplicationController
   
   private
   def set_lists
-    @exhibitions = Exhibition.all
-    @publications = Publication.all
+    exhibitions = Exhibition.all
+    @exhibitions = []
+    @publications = []
+    Publication.all.each { |p| @publications << p.name }
     @years = []
-    @exhibitions.each { |e| @years << e.year if !@years.include?(e.year) }
+    exhibitions.each do |e| 
+      @years << e.year if !@years.include?(e.year) 
+      @exhibitions << e.name if !@exhibitions.include?(e.name) 
+    end
     @years.sort!
   end
 end

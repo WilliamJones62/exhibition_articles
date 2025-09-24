@@ -18,18 +18,31 @@ class Api::V1::ReportsController < ApplicationController
   def piechart
     @xvalues = []
     @yvalues = []
+    exhibitions = Exhibition.where(year: @year)
+    exhibitions.each do |exhibition|
+      @xvalues << exhibition.name
+      @yvalues << exhibition.articles.count
+    end
   end
 
   def linegraph
-    @xvalues = []
+    @xvalues = (1792..1903).to_a
     @yvalues = []
+    puts "@exhibitions = #{@exhibitions}"
+    @xvalues.each do |y|
+      articles_ctr = 0
+      exhibitions = Exhibition.where(year: y).where(name: @exhibitions)
+      exhibitions.each { |e| articles_ctr += e.articles.count }
+      @yvalues << articles_ctr
+    end
   end
 
   private
   def set_params
     @year = params[:year] if params[:year]
     @exhibition = params[:exhibition] if params[:exhibition]
-    @publication = params[:publication] if params[:publication]
+    @publications = params[:publications].split(",") if params[:publications]
+    @exhibitions = params[:exhibitions].split(",") if params[:exhibitions]
   end
 
   def calculate_favorability(exhibition)
