@@ -28,9 +28,7 @@ class ArticlesController < ApplicationController
       render :new, status: :unprocessable_entity
       return
     end
-    @article.exhibition_id = set_parent_id(exhibition_id, @article.exhibition_id)
-    @article.publication_id = set_parent_id(publication_id, @article.publication_id)
-    @article.user_id = current_user.id
+    set_ids(exhibition_id, publication_id)
 
     if @article.save
       redirect_to articles_url, notice: 'Article was successfully created.'
@@ -84,6 +82,12 @@ class ArticlesController < ApplicationController
     @exhibitions = Exhibition.all
     @publications = Publication.all
     @publication_types = %w[NEWSPAPER PERIODICAL]
+  end
+
+  def set_ids(exhibition_id, publication_id)
+    @article.exhibition_id = set_parent_id(exhibition_id, @article.exhibition_id)
+    @article.publication_id = set_parent_id(publication_id, @article.publication_id)
+    @article.user_id = current_user.id
   end
 
   def set_parent_id(new_id, current_id)
