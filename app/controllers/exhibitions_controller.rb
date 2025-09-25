@@ -7,7 +7,7 @@ class ExhibitionsController < ApplicationController
 
   def index
     # @exhibitions = Exhibition.all
-    @exhibitions = Exhibition.order(:name)
+    @exhibitions = Exhibition.order(:name, :year)
   end
 
   def edit

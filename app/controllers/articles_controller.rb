@@ -1,9 +1,23 @@
 # frozen_string_literal: true
 
+require 'csv'
 # This class contains Articles controller logic
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[edit update destroy]
   before_action :set_lists, only: %i[new edit create update]
+
+  # POST /articles/import
+  def import
+    if params[:file].present?
+      file_path = params[:file].path
+      CSV.foreach(file_path, headers: true) do |row|
+        create_records(row)
+      end
+      redirect_to articles_url, notice: "CSV imported successfully!"
+    else
+      redirect_to articles_url, alert: "Please upload a CSV file."
+    end
+  end
 
   # GET /articles
   def index
@@ -94,6 +108,15 @@ class ArticlesController < ApplicationController
     return new_id if new_id.positive?
 
     current_id
+  end
+
+  def create_records(row)
+    exhibition = Exhibition.find_by(name: row['exhibition'], year: row['year'])
+    exhibition = Exhibition.create(name: row['exhibition'], year: row['year'], user_id: current_user.id) if !exhibition
+    publication = Publication.find_by(name: row['publication'])
+    publication = Publication.create(name: row['publication'], publication_type: row['type'], user_id: current_user.id) if !publication
+    article = Article.find_by(title: row['title'], author: row['author'], exhibition_id: exhibition.id, publication_id: publication.id)
+    article = Article.create(title: row['title'], author: row['author'], favorability: row['favorability'], exhibition_id: exhibition.id, publication_id: publication.id, user_id: current_user.id) if !article
   end
 
   # Only allow a list of trusted parameters through.

@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Year</th>
       <th></th>
     </tr>
   </thead>
@@ -11,6 +12,7 @@
     <% @exhibitions.each do |exhibition| %>
       <tr>
         <td><%= exhibition.name %></td>
+        <td><%= exhibition.year %></td>
         <% if current_user %>
         <td><%= link_to "EDIT", edit_exhibition_path(exhibition), class: "btn btn-primary" %></td>
         <% end %>
