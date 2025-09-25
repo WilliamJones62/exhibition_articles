@@ -12,14 +12,15 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, style: "display: block", class: "form-label fw-bold" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :year, style: "display: block" %>
+    <%= form.label :year, style: "display: block", class: "form-label fw-bold" %>
     <%= form.number_field :year, readonly: true %>
   </div>
+  <br />
   <div>
     <%= form.submit "Update", class: "btn btn-primary" %>
   </div>

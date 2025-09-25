@@ -12,46 +12,48 @@
   <% end %>
 
   <div>
-    <%= form.label :exhibition, style: "display: block" %>
+    <%= form.label :exhibition, style: "display: block", class: "form-label fw-bold" %>
     <%= form.select :exhibition_id, options_for_select(@exhibitions.map{ |e| [e.name + ' ' + e.year.to_s, e.id]}, @current_exhibition) %>
-  </div>
+    If the exhibition you need does not appear in the list please add it here
+    </div>
   
-  <p>If the exhibition you need does not appear in the list please add it here</p>
   <div class="d-flex justify-content-end">
-      <%= form.label :exhibition_name, style: "display: block" %>
+      <%= form.label :exhibition_name, style: "display: block", class: "form-label fw-bold" %>
       &nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :exhibition_name %>
-      &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :exhibition_year, style: "display: block" %>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :exhibition_year, style: "display: block", class: "form-label fw-bold" %>
       &nbsp;&nbsp;&nbsp;&nbsp;<%= form.select :exhibition_year, options_for_select(@years), prompt: "Select the exhibition year" %>
   </div>
 
   <div>
-    <%= form.label :publication, style: "display: block" %>
+    <%= form.label :publication, style: "display: block", class: "form-label fw-bold" %>
     <%= form.select :publication_id, options_for_select(@publications.map{ |p| [p.name, p.id]}, @current_publication) %>
-  </div>
+    If the publication you need does not appear in the list please add it here
+    </div>
 
-  <p>If the publication you need does not appear in the list please add it here</p>
   <div class="d-flex justify-content-end">
-    <%= form.label :publication_name, style: "display: block" %>
+    <%= form.label :publication_name, style: "display: block", class: "form-label fw-bold" %>
     &nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :publication_name %>
-    &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :publication_type, style: "display: block" %>
+    &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :publication_type, style: "display: block", class: "form-label fw-bold" %>
     &nbsp;&nbsp;&nbsp;&nbsp;<%= form.select :publication_type, options_for_select(@publication_types), prompt: "Select the publication type" %>
   </div>
   <br>
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :author, style: "display: block" %>
-    <%= form.text_field :author %>
-  </div>
-
-  <div>
-    <%= form.label :favorability, style: "display: block" %>
-    <%= form.select :favorability, @favorability, {}, {value: params[:favorability], id: :article_favorability} %>
-  </div>
-
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Favorability</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= form.text_field :title %></td>
+        <td><%= form.text_field :author %></td>
+        <td><%= form.select :favorability, @favorability, {}, {value: params[:favorability], id: :article_favorability} %></td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
   <div>
     <% if action_name = 'new' %>
     <%= form.submit "Create", class: "btn btn-primary" %>
