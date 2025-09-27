@@ -1,4 +1,4 @@
-<%= link_to "Download CSV", articles_download_path(format: :csv), class: "btn btn-primary" %>
+<%= link_to "Download CSV", home_download_path(format: :csv), class: "btn btn-primary" %>
 <canvas id="barChart" style="width:100%;max-width:700px"></canvas>
 <label for="baryear">Year (between 1792 and 1903):</label>
 <%= select_tag(:baryear, options_for_select(@years)) %>

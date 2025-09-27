@@ -6,6 +6,11 @@ class HomeController < ApplicationController
 
   def main; end
 
+  def download
+    @articles = Article.all
+    send_data @articles.to_csv, filename: "articles-#{Date.today}.csv"
+  end
+
   private
 
   def set_lists

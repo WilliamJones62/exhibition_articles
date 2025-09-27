@@ -13,9 +13,9 @@
 
   <div>
     <%= form.label :exhibition, style: "display: block", class: "form-label fw-bold" %>
-    <%= form.select :exhibition_id, options_for_select(@exhibitions.map{ |e| [e.name + ' ' + e.year.to_s, e.id]}, @current_exhibition) %>
+    <%= form.select :exhibition_id, options_for_select(@exhibitions.map { |e| [e.name + ' ' + e.year.to_s, e.id] }, selected: article.exhibition_id) %>
     If the exhibition you need does not appear in the list please add it here
-    </div>
+  </div>
   
   <div class="d-flex justify-content-end">
       <%= form.label :exhibition_name, style: "display: block", class: "form-label fw-bold" %>
@@ -26,7 +26,7 @@
 
   <div>
     <%= form.label :publication, style: "display: block", class: "form-label fw-bold" %>
-    <%= form.select :publication_id, options_for_select(@publications.map{ |p| [p.name, p.id]}, @current_publication) %>
+    <%= form.select :publication_id, options_for_select(@publications.map{ |p| [p.name, p.id] }, selected: article.publication_id) %>
     If the publication you need does not appear in the list please add it here
     </div>
 
@@ -55,7 +55,7 @@
   </table>
   <br />
   <div>
-    <% if action_name = 'new' %>
+    <% if action_name == 'new' || action_name == 'create' %>
     <%= form.submit "Create", class: "btn btn-primary" %>
     <% else %>
     <%= form.submit "Update", class: "btn btn-primary" %>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   get 'home/main'
   devise_for :users
-  get 'articles/download'
+  get 'home/download'
   post 'import', to: 'articles#import', as: :import
   resources :articles
   resources :publications, only: [:index, :edit, :destroy]
