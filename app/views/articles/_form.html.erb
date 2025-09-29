@@ -43,6 +43,7 @@
         <th>Title</th>
         <th>Author</th>
         <th>Favorability</th>
+        <th>Date</th>
       </tr>
     </thead>
     <tbody>
@@ -50,6 +51,7 @@
         <td><%= form.text_field :title %></td>
         <td><%= form.text_field :author %></td>
         <td><%= form.select :favorability, @favorability, {}, {value: params[:favorability], id: :article_favorability} %></td>
+        <td><%= form.date_field :publication_date, min: "1792-01-01", max: "1903-12-31" %></td>
       </tr>
     </tbody>
   </table>
