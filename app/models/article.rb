@@ -14,7 +14,7 @@ class Article < ApplicationRecord
   validates :favorability, inclusion: { in: %w[FAVORABLE NEUTRAL UNFAVORABLE] }
 
   def self.to_csv
-    column_names = %w[year exhibition publication type author title favorability]
+    column_names = %w[year exhibition publication type author title favorability publication_date]
     CSV.generate(headers: true) do |csv|
       csv << column_names
       all.each { |article| csv << load_csv_data(article) }
@@ -29,6 +29,7 @@ class Article < ApplicationRecord
     author = article.author
     title = article.title
     favorability = article.favorability
-    [year, exhibition, publication, type, author, title, favorability]
+    publication_date = article.publication_date
+    [year, exhibition, publication, type, author, title, favorability, publication_date]
   end
 end

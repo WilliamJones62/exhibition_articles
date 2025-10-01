@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   devise_for :users
   get 'home/download'
   post 'import', to: 'articles#import', as: :import
-  resources :articles
+  resources :articles, except: [:show]
   resources :publications, only: [:index, :edit, :destroy]
   resources :exhibitions, only: [:index, :edit, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

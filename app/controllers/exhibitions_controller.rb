@@ -11,12 +11,10 @@ class ExhibitionsController < ApplicationController
   end
 
   def edit
-    #   authorize @exhibition
     @current_year = @exhibition.year
   end
 
   def update
-    #   authorize @exhibition
     @exhibition.exhibitionyears.delete_all
     params[:years][:id].each do |year|
       @exhibition.exhibitionyears.build(year_id: year) unless year.empty?
@@ -30,7 +28,6 @@ class ExhibitionsController < ApplicationController
   end
 
   def destroy
-    #   authorize @exhibition
     @exhibition.destroy
     redirect_to exhibitions_url, notice: 'Exhibition was successfully deleted'
   end

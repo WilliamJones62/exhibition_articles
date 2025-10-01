@@ -25,7 +25,6 @@ class PublicationsController < ApplicationController
   end
 
   def destroy
-    #   authorize @publication
     @publication.destroy
     redirect_to publications_url, notice: 'publication was successfully deleted'
   end

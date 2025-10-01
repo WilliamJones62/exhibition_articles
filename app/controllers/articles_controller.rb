@@ -12,7 +12,8 @@ class ArticlesController < ApplicationController
   # POST /articles/import
   def import
     if params[:file].present?
-      CSV.foreach(params[:file].path, headers: true) { |row| create_records(row) }
+      file_path = params[:file].path
+      CsvImporterService.new(file_path, current_user.id).call
       redirect_to articles_url, notice: 'CSV imported successfully!'
     else
       redirect_to articles_url, alert: 'Please upload a CSV file.'
@@ -55,7 +56,6 @@ class ArticlesController < ApplicationController
 
   # DELETE /articles/1
   def destroy
-    # authorize @article
     @article.destroy
     redirect_to articles_url, notice: 'Article was successfully destroyed.'
   end
@@ -85,25 +85,6 @@ class ArticlesController < ApplicationController
     return new_id if new_id.positive?
 
     current_id
-  end
-
-  def create_records(row)
-    exhibition = Exhibition.find_or_create_by(name: row['exhibition'], year: row['year']) do |exhibition|
-      exhibition.user_id = current_user.id
-    end
-    publication = Publication.find_or_create_by(name: row['publication']) do |publication|
-      publication.publication_type = row['type']
-      publication.user_id = current_user.id
-    end
-    find_or_create_article(row, exhibition, publication)
-  end
-
-  def find_or_create_article(row, exhibition, publication)
-    Article.find_or_create_by(title: row['title'], author: row['author'], exhibition_id: exhibition.id,
-                              publication_id: publication.id) do |article|
-      article.favorability = row['favorability']
-      article.user_id = current_user.id
-    end
   end
 
   def test_new_parents
