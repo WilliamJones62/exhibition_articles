@@ -11,30 +11,34 @@
     </div>
   <% end %>
 
-  <div>
+  <div id="exhibition_selection">
     <%= form.label :exhibition, style: "display: block", class: "form-label fw-bold" %>
     <%= form.select :exhibition_id, options_for_select(@exhibitions.map { |e| [e.name + ' ' + e.year.to_s, e.id] }, selected: article.exhibition_id) %>
-    If the exhibition you need does not appear in the list please add it here
+    If the exhibition you need does not appear in the list please add it <span id="new_exhibition_btn" class="btn btn-secondary">here</span>
   </div>
   
-  <div class="d-flex justify-content-end">
-      <%= form.label :exhibition_name, style: "display: block", class: "form-label fw-bold" %>
-      &nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :exhibition_name %>
-      &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :exhibition_year, style: "display: block", class: "form-label fw-bold" %>
-      &nbsp;&nbsp;&nbsp;&nbsp;<%= form.select :exhibition_year, options_for_select(@years), prompt: "Select the exhibition year" %>
+  <div id="new_exhibition" class="d-none d-flex">
+      <p class="fw-bold">New Exhibition&nbsp;&nbsp;</p>
+      <%= form.label :name, style: "display: block", class: "form-label fw-bold" %>&nbsp;
+      <%= form.text_field :exhibition_name %>&nbsp;
+      <%= form.label :year, style: "display: block", class: "form-label fw-bold" %>&nbsp;
+      <%= form.select :exhibition_year, options_for_select(@years), prompt: "Select the exhibition year" %>&nbsp;
+      Return to the existing Exhibition list &nbsp;<span id="exhibition_list_btn" class="btn btn-secondary">here</span>
   </div>
 
-  <div>
+  <div id="publication_selection">
     <%= form.label :publication, style: "display: block", class: "form-label fw-bold" %>
     <%= form.select :publication_id, options_for_select(@publications.map{ |p| [p.name, p.id] }, selected: article.publication_id) %>
-    If the publication you need does not appear in the list please add it here
+    If the publication you need does not appear in the list please add it <span id="new_publication_btn" class="btn btn-secondary">here</span>
     </div>
 
-  <div class="d-flex justify-content-end">
-    <%= form.label :publication_name, style: "display: block", class: "form-label fw-bold" %>
-    &nbsp;&nbsp;&nbsp;&nbsp;<%= form.text_field :publication_name %>
-    &nbsp;&nbsp;&nbsp;&nbsp;<%= form.label :publication_type, style: "display: block", class: "form-label fw-bold" %>
-    &nbsp;&nbsp;&nbsp;&nbsp;<%= form.select :publication_type, options_for_select(@publication_types), prompt: "Select the publication type" %>
+  <div id="new_publication" class="d-none d-flex">
+    <p class="fw-bold">New Publication&nbsp;&nbsp;</p>
+    <%= form.label :name, style: "display: block", class: "form-label fw-bold" %>&nbsp;
+    <%= form.text_field :publication_name %>&nbsp;
+    <%= form.label :type, style: "display: block", class: "form-label fw-bold" %>&nbsp;
+    <%= form.select :publication_type, options_for_select(@publication_types), prompt: "Select the publication type" %>&nbsp;
+    Return to the existing Publication list &nbsp;<span id="publication_list_btn" class="btn btn-secondary">here</span>
   </div>
   <br>
   <table>
@@ -64,3 +68,38 @@
     <% end %>
   </div>
 <% end %>
+<script>
+  var newExhibitionBtn = document.getElementById('new_exhibition_btn');
+  var newExhibition = document.getElementById('new_exhibition');
+  var exhibitionListBtn = document.getElementById('exhibition_list_btn');
+  var exhibitionSelection = document.getElementById('exhibition_selection');
+  newExhibitionBtn.addEventListener('click', (event) => {
+    newExhibition.classList.add("d-block");
+    newExhibition.classList.remove("d-none");
+    exhibitionSelection.classList.add("d-none");
+    exhibitionSelection.classList.remove("d-block");
+  })
+  exhibitionListBtn.addEventListener('click', (event) => {
+    newExhibition.classList.add("d-none");
+    newExhibition.classList.remove("d-block");
+    exhibitionSelection.classList.add("d-block");
+    exhibitionSelection.classList.remove("d-none");
+  })
+
+  var newPublicationBtn = document.getElementById('new_publication_btn');
+  var newPublication = document.getElementById('new_publication');
+  var publicationListBtn = document.getElementById('publication_list_btn');
+  var publicationSelection = document.getElementById('publication_selection');
+  newPublicationBtn.addEventListener('click', (event) => {
+    newPublication.classList.add("d-block");
+    newPublication.classList.remove("d-none");
+    publicationSelection.classList.add("d-none");
+    publicationSelection.classList.remove("d-block");
+  })
+  publicationListBtn.addEventListener('click', (event) => {
+    newPublication.classList.add("d-none");
+    newPublication.classList.remove("d-block");
+    publicationSelection.classList.add("d-block");
+    publicationSelection.classList.remove("d-none");
+  })
+</script>
