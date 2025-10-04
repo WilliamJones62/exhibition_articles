@@ -53,7 +53,8 @@ module Api
         articles = exhibition.articles.all
         favor = 0
         articles.each { |a| favor += FAVORINT[FAVORTEXT.index(a.favorability)] }
-        return 0 if articles.length == 0
+        return 0 if articles.empty?
+
         ((favor.to_f / articles.length) * 50).round
       end
     end

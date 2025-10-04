@@ -13,8 +13,17 @@ RSpec.describe ParentCreationService, type: :service do
     context 'with valid parameters for both Exhibition and Publication' do
       before do
         @params = {
-          'authenticity_token' => 'Az63-cZWrn3XZ-urXVhxrb8rCWBTWc7V07BSPRRHp1TS3pEkzcsJbUnGljtW22b1mBQU1d7dWhL-BQ737OY4hA', 'article' => {
-            'exhibition_id' => '1', 'exhibition_name' => 'New Exhibition name', 'exhibition_year' => '1799', 'publication_id' => '1', 'publication_name' => 'New Publication name', 'publication_type' => 'PERIODICAL', 'title' => 'Rspec test 2', 'author' => 'Rspec Author', 'favorability' => 'FAVORABLE', 'publication_date' => '1903-12-21'
+          'article' => {
+            'exhibition_id' => '1',
+            'exhibition_name' => 'New Exhibition name',
+            'exhibition_year' => '1799',
+            'publication_id' => '1',
+            'publication_name' => 'New Publication name',
+            'publication_type' => 'PERIODICAL',
+            'title' => 'Rspec test 2',
+            'author' => 'Rspec Author',
+            'favorability' => 'FAVORABLE',
+            'publication_date' => '1903-12-21'
           }
         }
       end
@@ -35,8 +44,17 @@ RSpec.describe ParentCreationService, type: :service do
     context 'with invalid parameters for both Exhibition and Publication' do
       before do
         @params = {
-          'authenticity_token' => 'Az63-cZWrn3XZ-urXVhxrb8rCWBTWc7V07BSPRRHp1TS3pEkzcsJbUnGljtW22b1mBQU1d7dWhL-BQ737OY4hA', 'article' => {
-            'exhibition_id' => '1', 'exhibition_name' => nil, 'exhibition_year' => '1799', 'publication_id' => '1', 'publication_name' => nil, 'publication_type' => 'PERIODICAL', 'title' => 'Rspec test 2', 'author' => 'Rspec Author', 'favorability' => 'FAVORABLE', 'publication_date' => '1903-12-21'
+          'article' => {
+            'exhibition_id' => '1',
+            'exhibition_name' => nil,
+            'exhibition_year' => '1799',
+            'publication_id' => '1',
+            'publication_name' => nil,
+            'publication_type' => 'PERIODICAL',
+            'title' => 'Rspec test 2',
+            'author' => 'Rspec Author',
+            'favorability' => 'FAVORABLE',
+            'publication_date' => '1903-12-21'
           }
         }
       end
