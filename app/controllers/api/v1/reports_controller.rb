@@ -44,6 +44,7 @@ module Api
       private
 
       def set_params
+        puts "params = #{params}"
         @year = params[:year] if params[:year]
         @exhibitions = params[:exhibitions].split(',') if params[:exhibitions]
       end
@@ -52,6 +53,7 @@ module Api
         articles = exhibition.articles.all
         favor = 0
         articles.each { |a| favor += FAVORINT[FAVORTEXT.index(a.favorability)] }
+        return 0 if articles.length == 0
         ((favor.to_f / articles.length) * 50).round
       end
     end
